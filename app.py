@@ -54,13 +54,16 @@ if st.session_state.usuario_id is None:
         nome = st.text_input("Nome")
         senha = st.text_input("Senha", type="password")
         if st.button("Entrar"):
-            usuario = autenticar_usuario(nome, senha)
-            if usuario:
-                st.session_state.usuario_id = usuario[0]
-                st.session_state.tipo = usuario[3]
-                st.experimental_rerun()
+            if nome and senha:
+                usuario = autenticar_usuario(nome, senha)
+                if usuario:
+                    st.session_state.usuario_id = usuario[0]
+                    st.session_state.tipo = usuario[3]
+                    st.experimental_rerun()
+                else:
+                    st.error("Login inválido")
             else:
-                st.error("Login inválido")
+                st.warning("Por favor, preencha nome e senha!")
 else:
     st.success("Login ativo!")
 
